@@ -133,6 +133,10 @@ Key files:
 
 Have a feature idea? [Open an issue](https://github.com/Mushisushi28/BrowserKing/issues) or submit a PR.
 
+## Acknowledgments
+
+BrowserKing is built on top of Anthropic's [Claude for Chrome](https://chrome.google.com/webstore/detail/claude/danfohhfmbeahkgpceibgibfpkhokbfp) extension. We extended it with multi-provider support, local model compatibility, and a provider-themed UI.
+
 ## License
 
 MIT
