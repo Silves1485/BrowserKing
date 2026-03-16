@@ -130,6 +130,7 @@ Key files:
 - [ ] **Export to Playwright/Puppeteer** — Convert recorded workflows to automation scripts
 - [ ] **Provider cost tracking** — Track token usage and estimated cost per conversation
 - [ ] **Firefox & Edge support** — Port the extension to other Chromium and non-Chromium browsers
+- [ ] **Mobile support** — Bring browser agent capabilities to mobile browsers via Kiwi Browser or Firefox Android extensions
 
 Have a feature idea? [Open an issue](https://github.com/Mushisushi28/BrowserKing/issues) or submit a PR.
 
