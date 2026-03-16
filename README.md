@@ -127,7 +127,6 @@ Key files:
 - [ ] **Multi-tab workflows** — Coordinate actions across multiple tabs in a single task
 - [ ] **Prompt templates** — Pre-built task templates for common workflows (form filling, data extraction, price comparison)
 - [ ] **Better local model support** — Improve tool call translation for models with non-standard function calling formats
-- [ ] **Custom system prompts** — Let users customize the agent's behavior and personality
 - [ ] **Export to Playwright/Puppeteer** — Convert recorded workflows to automation scripts
 - [ ] **Provider cost tracking** — Track token usage and estimated cost per conversation
 - [ ] **Firefox & Edge support** — Port the extension to other Chromium and non-Chromium browsers
