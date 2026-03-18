@@ -286,6 +286,10 @@
         return;
       }
 
+      if (block.type === 'thinking' || block.type === 'redacted_thinking') {
+        return; // extended thinking blocks not supported by non-Anthropic providers
+      }
+
       if (block.type === 'image') {
         const imagePart = normaliseAnthropicImage(block);
         if (imagePart) {
@@ -414,6 +418,11 @@
 
         if (block?.type === 'tool_result') {
           toolResults.push(...buildToolResultMessages(block));
+          return;
+        }
+
+        // Skip extended thinking blocks — not supported by non-Anthropic providers
+        if (block?.type === 'thinking' || block?.type === 'redacted_thinking') {
           return;
         }
 
@@ -603,18 +612,27 @@
       messages = downgradeVisionMessages(messages, targetModel);
     }
 
+    // OpenAI o-series models use max_completion_tokens instead of max_tokens
+    const isOSeries = /^o\d/.test(targetModel);
+    const maxTokensKey = isOSeries ? 'max_completion_tokens' : 'max_tokens';
+
     const openAIRequest = {
       model: targetModel,
       messages,
-      max_tokens: body.max_tokens,
+      [maxTokensKey]: body.max_tokens,
       stream: Boolean(body.stream)
     };
+
+    const providerId = provider.id || '';
+
+    // Google Gemini and Perplexity don't support top_p reliably
+    const skipTopP = providerId === 'google' || providerId === 'perplexity';
 
     if (body.temperature !== undefined) {
       openAIRequest.temperature = body.temperature;
     }
 
-    if (body.top_p !== undefined) {
+    if (body.top_p !== undefined && !skipTopP) {
       openAIRequest.top_p = body.top_p;
     }
 
@@ -622,10 +640,21 @@
       openAIRequest.stop = body.stop_sequences;
     }
 
-    if (Array.isArray(body.tools) && body.tools.length > 0) {
+    // Providers that don't support function/tool calling
+    const noToolsProviders = ['perplexity'];
+    const supportsTools = !noToolsProviders.includes(providerId);
+
+    // Providers where tool_choice:'required' is not supported — fall back to 'auto'
+    const noRequiredToolChoice = ['google', 'perplexity', 'cerebras'];
+
+    if (Array.isArray(body.tools) && body.tools.length > 0 && supportsTools) {
       openAIRequest.tools = convertAnthropicToolsToOpenAI(body.tools);
-      const toolChoice = convertAnthropicToolChoice(body.tool_choice);
+      let toolChoice = convertAnthropicToolChoice(body.tool_choice);
+
       if (toolChoice !== undefined) {
+        if (toolChoice === 'required' && noRequiredToolChoice.includes(providerId)) {
+          toolChoice = 'auto';
+        }
         openAIRequest.tool_choice = toolChoice;
       }
 
@@ -633,7 +662,7 @@
         openAIRequest.tool_choice === undefined &&
         shouldForceBrowserToolUse(body.messages, body.tools)
       ) {
-        openAIRequest.tool_choice = 'required';
+        openAIRequest.tool_choice = noRequiredToolChoice.includes(providerId) ? 'auto' : 'required';
       }
     }
 
@@ -990,7 +1019,7 @@
 
     if (provider.apiKey) {
       headers.set('Authorization', `Bearer ${provider.apiKey}`);
-      headers.set('x-api-key', provider.apiKey);
+      // x-api-key is Anthropic-specific; sending it to OpenAI-compat providers causes 400 errors
     }
 
     if (provider.transport === 'anthropic') {
@@ -1030,7 +1059,14 @@
       return response;
     }
 
-    const upstreamUrl = `${String(provider.baseUrl || DEFAULT_PROVIDER_CONFIG.zai.baseUrl).replace(/\/+$/, '')}/chat/completions`;
+    // Google Gemini OpenAI-compat endpoint uses ?key= param; remove Bearer header to avoid conflicts
+    let rawUpstreamUrl = `${String(provider.baseUrl || DEFAULT_PROVIDER_CONFIG.zai.baseUrl).replace(/\/+$/, '')}/chat/completions`;
+    if (provider.id === 'google' && provider.apiKey) {
+      rawUpstreamUrl = `${rawUpstreamUrl}?key=${encodeURIComponent(provider.apiKey)}`;
+      headers.delete('Authorization');
+      headers.delete('authorization');
+    }
+    const upstreamUrl = rawUpstreamUrl;
     const openAIRequest = buildOpenAIRequest(anthropicRequest, provider, providerConfig);
 
     console.log('[API Adapter] Proxying Anthropic messages -> OpenAI chat completions:', {

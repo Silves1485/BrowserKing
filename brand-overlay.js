@@ -30,8 +30,10 @@
   async function applyOverlay() {
     const state = await registry.loadState();
     const definition = registry.getActiveProviderDefinition(state);
-    const color = definition.color;
-    const isDark = color === '#111111' || color === '#0F172A';
+    const rawColor = definition.color;
+    // For very dark/black colors use visible neon cyan so the glow is always perceptible
+    const color = (rawColor === '#111111' || rawColor === '#0F172A' || rawColor === '#000000') ? '#22D3EE' : rawColor;
+    const isDark = rawColor === '#111111' || rawColor === '#0F172A';
 
     // Inject CSS overrides for the stop button hover — this avoids
     // cloning the button (which caused infinite mutation loops).
@@ -43,21 +45,24 @@
       @keyframes claude-pulse {
         0% {
           box-shadow:
-            inset 0 0 10px ${hexToRgba(color, 0.5)},
-            inset 0 0 20px ${hexToRgba(color, 0.3)},
-            inset 0 0 30px ${hexToRgba(color, 0.1)};
+            inset 0 0 25px ${hexToRgba(color, 0.95)},
+            inset 0 0 50px ${hexToRgba(color, 0.6)},
+            inset 0 0 80px ${hexToRgba(color, 0.2)};
+          outline: 3px solid ${hexToRgba(color, 0.7)};
         }
         50% {
           box-shadow:
-            inset 0 0 15px ${hexToRgba(color, 0.7)},
-            inset 0 0 25px ${hexToRgba(color, 0.5)},
-            inset 0 0 35px ${hexToRgba(color, 0.2)};
+            inset 0 0 35px ${hexToRgba(color, 1.0)},
+            inset 0 0 70px ${hexToRgba(color, 0.75)},
+            inset 0 0 110px ${hexToRgba(color, 0.35)};
+          outline: 3px solid ${hexToRgba(color, 0.9)};
         }
         100% {
           box-shadow:
-            inset 0 0 10px ${hexToRgba(color, 0.5)},
-            inset 0 0 20px ${hexToRgba(color, 0.3)},
-            inset 0 0 30px ${hexToRgba(color, 0.1)};
+            inset 0 0 25px ${hexToRgba(color, 0.95)},
+            inset 0 0 50px ${hexToRgba(color, 0.6)},
+            inset 0 0 80px ${hexToRgba(color, 0.2)};
+          outline: 3px solid ${hexToRgba(color, 0.7)};
         }
       }
     `;
@@ -88,9 +93,11 @@
 
       #claude-agent-glow-border {
         box-shadow:
-          inset 0 0 10px ${hexToRgba(color, 0.5)},
-          inset 0 0 20px ${hexToRgba(color, 0.3)},
-          inset 0 0 30px ${hexToRgba(color, 0.1)} !important;
+          inset 0 0 25px ${hexToRgba(color, 0.95)},
+          inset 0 0 50px ${hexToRgba(color, 0.6)},
+          inset 0 0 80px ${hexToRgba(color, 0.2)} !important;
+        outline: 3px solid ${hexToRgba(color, 0.7)} !important;
+        outline-offset: -3px !important;
       }
     `;
 
@@ -98,9 +105,11 @@
     const border = document.getElementById('claude-agent-glow-border');
     if (border) {
       border.style.setProperty('box-shadow',
-        `inset 0 0 10px ${hexToRgba(color, 0.5)}, inset 0 0 20px ${hexToRgba(color, 0.3)}, inset 0 0 30px ${hexToRgba(color, 0.1)}`,
+        `inset 0 0 25px ${hexToRgba(color, 0.95)}, inset 0 0 50px ${hexToRgba(color, 0.6)}, inset 0 0 80px ${hexToRgba(color, 0.2)}`,
         'important'
       );
+      border.style.setProperty('outline', `3px solid ${hexToRgba(color, 0.7)}`, 'important');
+      border.style.setProperty('outline-offset', '-3px', 'important');
     }
 
     const stopButton = document.getElementById('claude-agent-stop-button');
